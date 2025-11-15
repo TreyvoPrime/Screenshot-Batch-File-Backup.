@@ -1,13 +1,13 @@
 @echo off
 :: =======================================
-:: Minecraft Screenshot Move Script
+:: Minecraft Screenshot Move Script (Universal)
 :: =======================================
 
 :: Source folder (where screenshots are saved)
-set "SOURCE=C:\Users\trey2\curseforge\minecraft\Instances\MC-Current Mods Server Friendly\screenshots"
+set "SOURCE=%USERPROFILE%\curseforge\minecraft\Instances\MC-Current Mods Server Friendly\screenshots"
 
-:: Destination folder (your desktop backup)
-set "DEST=C:\Users\trey2\Desktop\MCscreenshots"
+:: Destination folder (Desktop backup)
+set "DEST=%USERPROFILE%\Desktop\MCscreenshots"
 
 :: Make sure destination folder exists
 if not exist "%DEST%" mkdir "%DEST%"
@@ -23,7 +23,7 @@ for %%A in ("%SOURCE%\*.png") do (
 
 :: If there are no screenshots, stop
 if %COUNT%==0 (
-    echo ❌ No screenshots found in %SOURCE%
+    echo No screenshots found in "%SOURCE%"
     pause
     exit /b
 )
@@ -33,7 +33,7 @@ xcopy "%SOURCE%\*.png" "%DEST%\" /Y /E >nul
 
 :: Check if copy was successful
 if %errorlevel% neq 0 (
-    echo ❌ Error copying screenshots.
+    echo Error copying screenshots.
     pause
     exit /b
 )
@@ -41,9 +41,10 @@ if %errorlevel% neq 0 (
 :: Delete screenshots from original folder
 del "%SOURCE%\*.png" /q
 
-echo ✅ %COUNT% screenshots moved successfully!
-echo From: %SOURCE%
-echo To:   %DEST%
+echo.
+echo %COUNT% screenshots moved successfully!
+echo From: "%SOURCE%"
+echo To:   "%DEST%"
 echo.
 pause
 
